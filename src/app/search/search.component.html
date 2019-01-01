@@ -1,0 +1,38 @@
+<mat-toolbar color="primary"> Pixabay Search </mat-toolbar>
+<a class="logo" href="https://pixabay.com/">
+  <img src="https://pixabay.com/static/img/public/leaderboard_b.png" alt="Pixabay">
+</a>
+
+<div class="wrapper" >
+  <mat-form-field class="example-full-width">
+    <input matInput type="text" [(ngModel)]="searchQuery" color="primary" (keyup.enter)="images(searchQuery)" placeholder="Search For Image">
+    <!-- <mat-divider></mat-divider> -->
+    <mat-hint>Type the image you want to see!</mat-hint>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="accent" (click)="images(searchQuery)"> Search </button>
+</div>
+
+<div *ngIf="imageResult">
+  <mat-card class="example-card" *ngFor="let image of imageResult.hits">
+    <a class="mat__card" href="{{ image.pageURL }}">
+    <mat-card-header>
+      <img mat-card-avatar src="{{image.webformatURL}}" class="example-header-image">
+      <mat-card-title> {{ image.user }} </mat-card-title>
+      <mat-card-subtitle> {{ image.tags }} </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image src="{{ image.webformatURL }}" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <p>
+        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+        bred for hunting.
+      </p>
+    </mat-card-content>
+    <mat-chip-list>
+      <mat-chip color="accent" selected> {{ image.favorites }} </mat-chip>
+      <mat-chip color="accent" selected> {{ image.likes }} </mat-chip>
+    </mat-chip-list>
+    </a>
+  </mat-card>
+</div>
